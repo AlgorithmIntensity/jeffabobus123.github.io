@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jeff the Killer :3</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            background-color: black;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+        
+        video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+    </style>
+</head>
+<body>
+    <video id="videoPlayer" playsinline autoplay muted loop>
+        <source src="video.mp4" type="video/mp4">
+        Ваш браузер не поддерживает видео.
+    </video>
+
+    <script>
+        const video = document.getElementById('videoPlayer');
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                await video.play();
+                
+                // Пытаемся развернуть на весь экран
+                if (document.documentElement.requestFullscreen) {
+                    await document.documentElement.requestFullscreen();
+                } else if (document.documentElement.webkitRequestFullscreen) {
+                    await document.documentElement.webkitRequestFullscreen();
+                } else if (document.documentElement.msRequestFullscreen) {
+                    await document.documentElement.msRequestFullscreen();
+                }
+            } catch (error) {
+                console.log('Автозапуск или полноэкранный режим не поддерживается:', error);
+            }
+        });
+        video.addEventListener('error', () => {
+            console.error('Ошибка загрузки видео. Убедитесь, что файл video.mp4 находится в той же папке.');
+        });
+        video.addEventListener('ended', () => {
+            video.currentTime = 0;
+            video.play();
+        });
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden && video.paused) {
+                video.play();
+            }
+        });
+    </script>
+</body>
+</html>
