@@ -29,7 +29,7 @@
     </style>
 </head>
 <body>
-    <video id="videoPlayer" playsinline autoplay muted loop>
+    <video id="videoPlayer" playsinline autoplay loop>
         <source src="video.mp4" type="video/mp4">
         Ваш браузер не поддерживает видео.
     </video>
@@ -39,8 +39,6 @@
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 await video.play();
-                
-                // Пытаемся развернуть на весь экран
                 if (document.documentElement.requestFullscreen) {
                     await document.documentElement.requestFullscreen();
                 } else if (document.documentElement.webkitRequestFullscreen) {
@@ -53,7 +51,7 @@
             }
         });
         video.addEventListener('error', () => {
-            console.error('Ошибка загрузки видео. Убедитесь, что файл video.mp4 находится в той же папке.');
+            console.error(':(');
         });
         video.addEventListener('ended', () => {
             video.currentTime = 0;
